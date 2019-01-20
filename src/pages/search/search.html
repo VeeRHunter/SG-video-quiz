@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Search
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page1">
+
+    <ion-searchbar id="search-search1" (ioninput)="getItems($event)"></ion-searchbar>
+    
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Filter by</ion-label>
+        <ion-select [(ngModel)]="Filter">
+          <ion-option value="d">Date</ion-option>
+          <ion-option value="r">Rating</ion-option>
+          <ion-option value="c">Category</ion-option>
+        </ion-select>
+      </ion-item>
+
+            <ion-item color="none" onclick="window.open('https://www.thebalance.com/what-are-bonds-and-how-do-they-work-3306235', '_system', 'location=yes'); return false;" id="search-list-item4">
+              What are bonds and how they work
+            </ion-item>
+            <ion-item color="none" onclick="window.open('https://www.forbes.com/sites/davidrae/2018/09/12/millennials-investing-questions/#4c8717af7110', '_system', 'location=yes'); return false;" id="search-list-item4">
+              Millennials: Your top 5 investing questions answered
+            </ion-item>
+    <ion-item color="none" onclick="window.open('https://courses.lumenlearning.com/boundless-finance/chapter/advantages-and-disadvantages-of-bonds', '_system', 'location=yes'); return false;"id="search-list-item5">
+      Advantages and disadvantages of bonds
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://www.thebalance.com/how-bond-funds-can-lose-money-2466567', '_system', 'location=yes'); return false;" id="search-list-item6">
+      How can bonds lose money?
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://dollarsandsense.sg/step-by-step-guide-to-bond-investing-in-singapore', '_system', 'location=yes'); return false;"id="search-list-item7">
+      Step-By-Step Guide To Bond Investing In Singapore
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://pocketsense.com/bonds-safer-stock-5558.html', '_system', 'location=yes'); return false;" id="search-list-item8">
+      Why Bonds Are Safer Than Stock
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://www.thestreet.com/topic/1584/stocks.html', '_system', 'location=yes'); return false;" id="search-list-item9">
+      What are stocks?
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://www.investopedia.com/ask/answers/difference-between-shares-and-stocks', '_system', 'location=yes'); return false;"id="search-list-item20">
+      Difference between stocks and shares
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://www.hni.com/blog/bid/86285/7-reasons-why-insurance-is-important', '_system', 'location=yes'); return false;"id="search-list-item21">
+      7 reasons why insurance is important
+    </ion-item> 
+    <ion-item color="none" onclick="window.open('https://dollarsandsense.sg/beginners-guide-buying-insurance-singapore/', '_system', 'location=yes'); return false;"id="search-list-item22">
+      Buying insurance in Singapore
+    </ion-item>
+    <ion-item color="none" onclick="window.open('https://www.forbes.com/sites/arielleoshea/2017/02/21/5-essential-investing-moves-for-millennials/#7a94f9772c22', '_system', 'location=yes'); return false;" id="search-list-item4">
+      What millennials get wrong about investing
+    </ion-item>
+
+
+
+  </ion-list>
+</ion-content>
