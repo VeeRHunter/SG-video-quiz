@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Insurance
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page4">
+    <ion-searchbar id="insurance-search4" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list id="insurance-list5">
+      <ion-item-sliding *ngFor = "let searchItem of search">
+    
+    <ion-item color="none" on-click="goToHowInsuranceWorks()" id="insurance-list-item23">
+      {{searchItem.name}}
+    </ion-item>
+
+      </ion-item-sliding>
+  </ion-list>
+
+
+
+  
+</ion-content>
