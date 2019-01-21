@@ -1,0 +1,48 @@
+page-article-detail {
+    .quiz-part {
+        h6 {
+            border-style: inset;
+            border-width: 3px;
+            border-color: coral;
+            padding: 3px;
+            .quiz-first {
+                margin-top: 10px;
+                margin-bottom: 30px;
+                h1 {
+                    margin: auto;
+                    text-align: center;
+                }
+                h4 {
+                    // width: 70%;
+                    margin: auto;
+                    text-align: center;
+                }
+            }
+            .quiz-detail {
+                .quiz-des {
+                    width: 90%;
+                    margin-left: 5%; // span {
+                    //     padding-left: 20px;
+                    // }
+                    input {
+                        margin: auto;
+                        margin-top: 3px;
+                    }
+                    span {
+                        margin-top: auto;
+                        margin-bottom: auto;
+                    }
+                }
+            }
+        }
+    }
+    .checked {
+        color: orange;
+    }
+    .like-part {
+        margin-top: 10px;
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+}

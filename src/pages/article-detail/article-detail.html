@@ -1,0 +1,84 @@
+<ion-header>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="http://www.youtube.com/player_api"></script>
+  <ion-navbar>
+
+
+    <ion-title *ngIf="enableShow">
+      {{articleDeta.articlename}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page7">
+
+  <div *ngIf="enableShow">
+    <div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;" id="howBondInvestingWorks-video12">
+      <iframe [src]="articleDeta.videoURL" frameborder="0" allowfullscreen width="560" id="vdo-player1" height="315"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+    </div>
+
+    <ion-row class="like-part">
+      <ion-icon name="ios-heart-outline" class="unlike-icon" *ngIf="!articleDeta.liked" (click)="likeArticle()"></ion-icon>
+      <ion-icon name="ios-heart" class="like-icon" *ngIf="articleDeta.liked" (click)="likeArticle()"></ion-icon>
+      &nbsp;&nbsp;
+      <span [ngClass]="{'like-icon':articleDeta.liked, 'unlike-icon':!articleDeta.liked}" (click)="likeArticle()">Like</span>
+    </ion-row>
+
+    <br>
+    <ion-row class="quiz-part">
+      <h6>
+
+        <ion-row class="quiz-first">
+          <h1 align="center"><u> Quiz Time! </u></h1>
+          <h4 align="center">
+            Now lets apply your knowledge in this Quiz. <br>
+
+            You will not be allowed to leave this page until you make an attempt.
+          </h4>
+        </ion-row>
+
+        <div *ngFor="let list of articleDeta.questions; let quizIndex = index" class="quiz-detail">
+
+          <h5 class="quiz-title">
+            <strong>Question {{quizIndex+1}}</strong>: {{list.questionname}}
+          </h5>
+
+
+          <ion-list radio-group [(ngModel)]="selectedOption" class="quiz-des">
+            <ion-row *ngFor="let quizList of list.options;let optIndex = index">
+              <ion-col col-1>
+                <ion-row class="full-height">
+                  <input type="radio" checked name="{{list.questionname}}{{quizIndex}}" value="{{quizList.optionname}}"
+                    (click)="clickOption(quizIndex, optIndex)" *ngIf="list.selectedanswer==quizList.optionname">
+                  <input type="radio" name="{{list.questionname}}{{quizIndex}}" value="{{quizList.optionname}}" (click)="clickOption(quizIndex, optIndex)"
+                    *ngIf="list.selectedanswer!=quizList.optionname">
+                </ion-row>
+              </ion-col>
+              <ion-col col-11>
+                <ion-row class="full-height">
+                  <span (click)="clickOption(quizIndex, optIndex)">
+                    {{quizList.optionname}}
+                  </span>
+                </ion-row>
+              </ion-col>
+              <br>
+            </ion-row>
+          </ion-list>
+        </div>
+
+        <button id="notes-button4" ion-button color="positive" block (click)="submitQuiz()">
+          Submit
+        </button>
+
+        Don't forget to give this video rating:
+        <br>
+        <span class="fa fa-star" [ngClass]="{'checked':starRating >= i, 'unset':starRating < i}" (click)="setRating(i)"
+          *ngFor="let list of starList; let i = index">
+        </span>
+        <br>
+
+      </h6>
+    </ion-row>
+
+  </div>
+</ion-content>

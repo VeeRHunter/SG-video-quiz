@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { DataProvider } from '../../providers/data/data';
+import { ArticleDetailPage } from '../article-detail/article-detail';
 
 
 @Component({
@@ -8,9 +11,60 @@ import { NavController } from 'ionic-angular';
 })
 export class SearchPage {
 
-  constructor(public navCtrl: NavController) {
+  public eachArticle: any = {};
+  public articleList: any[];
+  public showList: any[];
+
+  public searchKey = "";
+
+  constructor(
+    public navCtrl: NavController,
+    public loading: LoadingProvider,
+    public dataProvider: DataProvider,
+  ) {
   }
-  
+
+  ionViewDidLoad() {
+    this.getArticleList();
+  }
+
+  getArticleList() {
+
+    this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
+      this.articleList = new Array();
+      this.eachArticle = result.payload.val();
+      for (var listKey in this.eachArticle) {
+        this.articleList.push(this.eachArticle[listKey]);
+      }
+      this.getItems(event);
+      this.loading.hide();
+    });
+  }
+
+  goToArticleDetail(index) {
+    console.log(index);
+    console.log(this.showList[index]);
+    console.log(this.showList[index].articlename);
+    this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+  }
+
+  getItems(ev: any) {
+    console.log(this.searchKey);
+    this.showList = new Array();
+    if (this.searchKey == "") {
+      // for (let list of this.articleList) {
+      //   this.showList.push(list);
+      // }
+    } else {
+      for (let list of this.articleList) {
+        if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
+          this.showList.push(list);
+        }
+      }
+    }
+    console.log(this.showList);
+  }
+
 }
 
 

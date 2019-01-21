@@ -7,9 +7,23 @@
 </ion-header>
 <ion-content padding id="page3">
 
-    <ion-item color="none" onclick="window.open('https://www.thebalance.com/what-are-bonds-and-how-do-they-work-3306235', '_system', 'location=yes'); return false;" id="search-list-item4">
-      What are bonds and how they work
-    </ion-item>
+  <ion-row class="liked-row" *ngFor="let searchItem of showList; let i = index">
+
+    <ion-col col-10>
+      <ion-row class="full-height" on-click="goToArticleDetail(i)">
+        <span>
+          {{searchItem.articlename}}
+        </span>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-2>
+      <ion-row class="full-height">
+        <ion-icon name="ios-heart" class="like-icon" (click)="likeArticle(i)"></ion-icon>
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
 
 
 </ion-content>

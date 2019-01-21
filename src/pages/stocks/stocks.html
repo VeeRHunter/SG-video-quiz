@@ -6,21 +6,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page3">
-    <ion-searchbar id="bonds-search3" (ionInput)="getItems($event)"></ion-searchbar>
-    
+
+  <ion-searchbar id="bonds-search1" [(ngModel)]="searchKey" (ionInput)="getItems($event)"></ion-searchbar>
+
   <ion-list id="stocks-list4">
-    <ion-item-sliding *ngFor = "let searchItem of search">
-    
-        <ion-item color="none" on-click="goToInvestingForBeginnersPage()" id="insurance-list-item23">
-          {{searchItem.name}}
-        </ion-item>
-        
-          </ion-item-sliding>
-        </ion-list>
-    
-      </ion-content>
-    
+    <ion-item-sliding *ngFor="let searchItem of showList; let i = index">
 
+      <ion-item color="none" on-click="goToArticleDetail(i)" id="insurance-list-item23">
+        {{searchItem.articlename}}
+      </ion-item>
 
+    </ion-item-sliding>
+  </ion-list>
 
-
+</ion-content>

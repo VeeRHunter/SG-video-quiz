@@ -6,15 +6,6 @@ import { VideosOnInvestmentsPage } from '../pages/videos-on-investments/videos-o
 import { BondsPage } from '../pages/bonds/bonds';
 import { StocksPage } from '../pages/stocks/stocks';
 import { InsurancePage } from '../pages/insurance/insurance';
-import { InvestingBasicsPage } from '../pages/investing-basics/investing-basics';
-import { Investing101Page } from '../pages/investing101/investing101';
-import { HowBondInvestingWorksPage } from '../pages/how-bond-investing-works/how-bond-investing-works';
-import { InvestingForBeginnersPage } from '../pages/investing-for-beginners/investing-for-beginners';
-import { InvestingSafelyPage } from '../pages/investing-safely/investing-safely';
-import { WhatAreStocksPage } from '../pages/what-are-stocks/what-are-stocks';
-import { HowInsuranceWorksPage } from '../pages/how-insurance-works/how-insurance-works';
-import { WhyInvestInInsurancePage } from '../pages/why-invest-in-insurance/why-invest-in-insurance';
-import { LifeInsurancePage } from '../pages/life-insurance/life-insurance';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,8 +15,30 @@ import { HistoryPage } from '../pages/history/history';
 import { HomePage } from '../pages/home/home';
 import { ReadingListPage } from '../pages/reading-list/reading-list';
 import { RecommendationsPage } from '../pages/recommendations/recommendations';
-import { Search } from '../models/search';
 import { SearchPage } from '../pages/search/search';
+
+
+import * as firebase from 'firebase';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { LoadingProvider } from '../providers/loading/loading';
+import { ServiceProvider } from '../providers/service/service';
+import { DataProvider } from '../providers/data/data';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { ToastProvider } from '../providers/toast/toast';
+import { HttpClientModule } from '@angular/common/http';
+import { ArticleDetailPage } from '../pages/article-detail/article-detail';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAV_uyBCHubtBWF1LioFqfCvfAkCzvhi60",
+  authDomain: "msaproj-de614.firebaseapp.com",
+  databaseURL: "https://msaproj-de614.firebaseio.com",
+  projectId: "msaproj-de614",
+  storageBucket: "msaproj-de614.appspot.com",
+  messagingSenderId: "830232158947"
+};
+firebase.initializeApp(firebaseConfig);
 
 @NgModule({
   declarations: [
@@ -34,25 +47,21 @@ import { SearchPage } from '../pages/search/search';
     BondsPage,
     StocksPage,
     InsurancePage,
-    InvestingBasicsPage,
-    Investing101Page,
-    HowBondInvestingWorksPage,
-    InvestingForBeginnersPage,
-    InvestingSafelyPage,
-    WhatAreStocksPage,
-    HowInsuranceWorksPage,
-    WhyInvestInInsurancePage,
-    LifeInsurancePage,
     ArticlesPage,
     HistoryPage,
     HomePage,
     ReadingListPage,
     RecommendationsPage,
     SearchPage,
+    ArticleDetailPage,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,26 +70,23 @@ import { SearchPage } from '../pages/search/search';
     BondsPage,
     StocksPage,
     InsurancePage,
-    InvestingBasicsPage,
-    Investing101Page,
-    HowBondInvestingWorksPage,
-    InvestingForBeginnersPage,
-    InvestingSafelyPage,
-    WhatAreStocksPage,
-    HowInsuranceWorksPage,
-    WhyInvestInInsurancePage,
-    LifeInsurancePage,
     ArticlesPage,
     HistoryPage,
     HomePage,
     ReadingListPage,
     RecommendationsPage,
     SearchPage,
+    ArticleDetailPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    LoadingProvider,
+    ServiceProvider,
+    DataProvider,
+    FirebaseProvider,
+    ToastProvider
   ]
 })
 export class AppModule { }

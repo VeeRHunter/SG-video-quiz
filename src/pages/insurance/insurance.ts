@@ -1,63 +1,70 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HowInsuranceWorksPage } from '../how-insurance-works/how-insurance-works';
-import { LifeInsurancePage } from '../life-insurance/life-insurance';
-import { WhyInvestInInsurancePage } from '../why-invest-in-insurance/why-invest-in-insurance';
 import { Search } from '../../models/search';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { DataProvider } from '../../providers/data/data';
+import { ArticleDetailPage } from '../article-detail/article-detail';
 
 @Component({
   selector: 'page-insurance',
   templateUrl: 'insurance.html'
 })
-export class InsurancePage implements OnInit {
+export class InsurancePage {
   search: Search[];
-  
-  ngOnInit() {
 
-    this.search = [
-  
-      new Search("How insurance works"),
-  
-      new Search("Why invest in insurance?"),
+  public eachArticle: any = {};
+  public insuranceList: any[];
+  public showList: any[];
 
-      new Search("Life Insurance")  
-    ];
-  
-  }  
+  public searchKey = "";
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public loading: LoadingProvider,
+    public dataProvider: DataProvider,
+  ) {
   }
 
- 
-  goToHowInsuranceWorks(params){
-    if (!params) params = {};
-    this.navCtrl.push(HowInsuranceWorksPage);
-  }goToLifeInsurance(params){
-    if (!params) params = {};
-    this.navCtrl.push(LifeInsurancePage);
-  }goToWhyInvestInInsurance(params){
-    if (!params) params = {};
-    this.navCtrl.push(WhyInvestInInsurancePage);
+  ionViewDidLoad() {
+    this.getArticleList();
   }
+
+  getArticleList() {
+
+    this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
+      this.insuranceList = new Array();
+      this.eachArticle = result.payload.val();
+      for (var listKey in this.eachArticle) {
+        if (this.eachArticle[listKey].type == "Stocks") {
+          this.insuranceList.push(this.eachArticle[listKey]);
+        }
+      }
+      this.getItems(event);
+      this.loading.hide();
+    });
+  }
+
+  goToArticleDetail(index) {
+    console.log(index);
+    console.log(this.showList[index]);
+    console.log(this.showList[index].articlename);
+    this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+  }
+
   getItems(ev: any) {
-
-    // Reset items back to all of the items
-
-   this.ngOnInit();
-
- 
-
-    // set val to the value of the searchbar
-
-    let val = ev.target.value;
-
-    console.log("search"+val);
-
-    if (val && val.trim() != '') {
-
-      this.search = this.search.filter(item => item.name.toLowerCase().includes(val.toLowerCase()) 
-      )
-
+    console.log(this.searchKey);
+    this.showList = new Array();
+    if (this.searchKey == "") {
+      for (let list of this.insuranceList) {
+        this.showList.push(list);
+      }
+    } else {
+      for (let list of this.insuranceList) {
+        if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
+          this.showList.push(list);
+        }
+      }
     }
+    console.log(this.showList);
   }
 }

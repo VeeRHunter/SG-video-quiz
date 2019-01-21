@@ -1,62 +1,71 @@
 import { NavController } from 'ionic-angular';
-import { InvestingForBeginnersPage } from '../investing-for-beginners/investing-for-beginners';
-import { WhatAreStocksPage } from '../what-are-stocks/what-are-stocks';
-import { InvestingSafelyPage } from '../investing-safely/investing-safely';
 import { Search } from '../../models/search';
 import { Component, OnInit } from '@angular/core';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { DataProvider } from '../../providers/data/data';
+import { ArticleDetailPage } from '../article-detail/article-detail';
 
 @Component({
   selector: 'page-stocks',
   templateUrl: 'stocks.html'
 })
-export class StocksPage implements OnInit {
+export class StocksPage {
   search: Search[];
 
-  ngOnInit() {
-    this.search = [
+  public eachArticle: any = {};
+  public stocksList: any[];
+  public showList: any[];
 
-      new Search("What are stocks"),
+  public searchKey = "";
 
-      new Search("Investing For beginners"),
-
-      new Search("Investing Safely")
-    ];
+  constructor(
+    public navCtrl: NavController,
+    public loading: LoadingProvider,
+    public dataProvider: DataProvider,
+  ) {
   }
 
-
-
-
-
-  constructor(public navCtrl: NavController) {
+  ionViewDidLoad() {
+    this.getArticleList();
   }
-  goToInvestingForBeginners(params) {
-    if (!params) params = {};
-    this.navCtrl.push(InvestingForBeginnersPage);
-  } goToWhatAreStocks(params) {
-    if (!params) params = {};
-    this.navCtrl.push(WhatAreStocksPage);
-  } goToInvestingSafely(params) {
-    if (!params) params = {};
-    this.navCtrl.push(InvestingSafelyPage);
+
+  getArticleList() {
+
+    this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
+      this.stocksList = new Array();
+      this.eachArticle = result.payload.val();
+      for (var listKey in this.eachArticle) {
+        if (this.eachArticle[listKey].type == "Stocks") {
+          this.stocksList.push(this.eachArticle[listKey]);
+        }
+      }
+      this.getItems(event);
+      this.loading.hide();
+    });
   }
+
+  goToArticleDetail(index) {
+    console.log(index);
+    console.log(this.showList[index]);
+    console.log(this.showList[index].articlename);
+    this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+  }
+
   getItems(ev: any) {
-
-    // Reset items back to all of the items
-
-    this.ngOnInit();
-
-    // set val to the value of the searchbar
-
-    let val = ev.target.value;
-
-    console.log("search" + val);
-
-    if (val && val.trim() != '') {
-
-      this.search = this.search.filter(item => item.name.toLowerCase().includes(val.toLowerCase())
-      )
-
+    console.log(this.searchKey);
+    this.showList = new Array();
+    if (this.searchKey == "") {
+      for (let list of this.stocksList) {
+        this.showList.push(list);
+      }
+    } else {
+      for (let list of this.stocksList) {
+        if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
+          this.showList.push(list);
+        }
+      }
     }
+    console.log(this.showList);
   }
 }
 
