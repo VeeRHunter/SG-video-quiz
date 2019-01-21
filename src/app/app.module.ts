@@ -30,6 +30,10 @@ import { ToastProvider } from '../providers/toast/toast';
 import { HttpClientModule } from '@angular/common/http';
 import { ArticleDetailPage } from '../pages/article-detail/article-detail';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { InappbrowProvider } from '../providers/inappbrow/inappbrow';
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyAV_uyBCHubtBWF1LioFqfCvfAkCzvhi60",
   authDomain: "msaproj-de614.firebaseapp.com",
@@ -81,12 +85,14 @@ firebase.initializeApp(firebaseConfig);
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoadingProvider,
     ServiceProvider,
     DataProvider,
     FirebaseProvider,
-    ToastProvider
+    ToastProvider,
+    InappbrowProvider
   ]
 })
 export class AppModule { }

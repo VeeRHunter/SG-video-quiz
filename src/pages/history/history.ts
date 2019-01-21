@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
 import { ArticleDetailPage } from '../article-detail/article-detail';
+import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
 
 @Component({
   selector: 'page-history',
@@ -20,6 +21,7 @@ export class HistoryPage {
     public navCtrl: NavController,
     public loading: LoadingProvider,
     public dataProvider: DataProvider,
+    public inappProvider: InappbrowProvider,
   ) {
   }
 
@@ -37,7 +39,7 @@ export class HistoryPage {
         this.articleList.push(this.eachArticle[listKey]);
       }
       for (let list of this.articleList) {
-        if (list.history) {
+        if (list.readvideo || list.readwebsite) {
           this.showList.push(list);
         }
       }
@@ -46,10 +48,21 @@ export class HistoryPage {
   }
 
   goToArticleDetail(index) {
-    console.log(index);
-    console.log(this.showList[index]);
-    console.log(this.showList[index].articlename);
-    this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+    if (this.showList[index].readvideo != null) {
+      if (this.showList[index].readwebsite != null) {
+        this.inappProvider.openWebsite(this.showList[index].websiteURL);
+      } else {
+        this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+      }
+    } else {
+      if (this.showList[index].readwebsite != null) {
+        this.inappProvider.openWebsite(this.showList[index].websiteURL);
+      } else {
+        this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+      }
+    }
+    // this.inappProvider.openWebsite(this.showList[index].websiteURL);
+    // this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
   }
 
 

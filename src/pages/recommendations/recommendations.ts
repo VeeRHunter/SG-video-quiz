@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
 import { ArticleDetailPage } from '../article-detail/article-detail';
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
 
 @Component({
   selector: 'page-recommendations',
@@ -21,6 +23,8 @@ export class RecommendationsPage {
     public navCtrl: NavController,
     public loading: LoadingProvider,
     public dataProvider: DataProvider,
+    public firebaseProvider: FirebaseProvider,
+    public inappProvider: InappbrowProvider,
   ) {
   }
 
@@ -39,12 +43,11 @@ export class RecommendationsPage {
         this.articleList.push(this.eachArticle[listKey]);
       }
       for (let list of this.articleList) {
-        if (list.reading) {
-          if (list["quiz-answer"] != null) {
-            this.quizList.push(list);
-          } else {
-            this.searchList.push(list);
-          }
+        if (list.readwebsite) {
+          this.searchList.push(list);
+        }
+        if (list.readvideo) {
+          this.quizList.push(list);
         }
       }
       console.log(this.quizList);
@@ -54,12 +57,10 @@ export class RecommendationsPage {
   }
 
   goToArticleDetailSearch(index) {
-    console.log(index);
-    this.navCtrl.push(ArticleDetailPage, { articleParam: this.searchList[index] });
+    this.inappProvider.openWebsite(this.searchList[index].websiteURL);
   }
 
   goToArticleDetailQuiz(index) {
-    console.log(index);
     this.navCtrl.push(ArticleDetailPage, { articleParam: this.quizList[index] });
   }
 

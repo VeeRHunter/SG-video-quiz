@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
@@ -28,6 +28,9 @@ export class ArticleDetailPage {
   public eachArticle: any = {};
   public enableShow = false;
 
+  public checked = 0;
+  public unchcked = 0;
+
   public selectedOption: any;
 
   public starRating: any;
@@ -41,6 +44,7 @@ export class ArticleDetailPage {
     public firebaseProvider: FirebaseProvider,
     public sanitizer: DomSanitizer,
     public toast: ToastProvider,
+    public alertCtrl: AlertController,
   ) {
   }
 
@@ -69,7 +73,7 @@ export class ArticleDetailPage {
       this.articleDeta.videoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.articleDeta.videoURL);
       console.log(this.eachArticle);
       this.enableShow = true;
-      this.firebaseProvider.updateReadingState(this.articleDeta.articlename);
+      this.firebaseProvider.updateReadingVideoState(this.articleDeta.articlename);
       this.firebaseProvider.updateHistory(this.articleDeta.articlename);
       this.loading.hide();
     }, error => {
@@ -79,25 +83,47 @@ export class ArticleDetailPage {
 
   submitQuiz() {
     console.log(this.countCorrectAnswer());
-    if (this.countCorrectAnswer()) {
-      this.firebaseProvider.updateQuestinAnswers(this.articleDeta.articlename, this.articleDeta.questions);
-      this.navCtrl.setRoot(HomePage);
+    this.countCorrectAnswer();
+    if (this.unchcked == 0) {
+      this.presentConfirm();
     } else {
-      this.toast.show("You should pass half of these questions for submit");
+      this.toast.show("Please complete all questions to submit");
     }
   }
 
   countCorrectAnswer() {
-    let count = 0;
+    this.unchcked = 0;
+    this.checked = 0;
     for (let list of this.articleDeta.questions) {
       if (list.answer == list.selectedanswer) {
-        count++;
+        this.checked++;
+      }
+      if (list.selectedanswer == "") {
+        this.unchcked++;
       }
     }
-    if (count >= (this.articleDeta.questions.length) / 2) {
-      return true;
-    } else {
-      return false;
+  }
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Quiz Score',
+      message: 'Passed ' + this.checked + ' questions of ' + this.articleDeta.questions.length + 'questins',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.quizResult();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  quizResult() {
+    if (this.checked >= (this.articleDeta.questions.length) / 2) {
+      this.firebaseProvider.updateQuestinAnswers(this.articleDeta.articlename, this.articleDeta.questions);
+      this.navCtrl.setRoot(HomePage);
     }
   }
 

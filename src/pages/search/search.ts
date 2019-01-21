@@ -4,6 +4,10 @@ import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
 import { ArticleDetailPage } from '../article-detail/article-detail';
 
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
+
+
 
 @Component({
   selector: 'page-search',
@@ -16,11 +20,12 @@ export class SearchPage {
   public showList: any[];
 
   public searchKey = "";
-
   constructor(
     public navCtrl: NavController,
     public loading: LoadingProvider,
     public dataProvider: DataProvider,
+    public firebaseProvider: FirebaseProvider,
+    public inappProvider: InappbrowProvider,
   ) {
   }
 
@@ -34,7 +39,9 @@ export class SearchPage {
       this.articleList = new Array();
       this.eachArticle = result.payload.val();
       for (var listKey in this.eachArticle) {
-        this.articleList.push(this.eachArticle[listKey]);
+        if (this.eachArticle[listKey].websiteURL != null) {
+          this.articleList.push(this.eachArticle[listKey]);
+        }
       }
       this.getItems(event);
       this.loading.hide();
@@ -42,19 +49,21 @@ export class SearchPage {
   }
 
   goToArticleDetail(index) {
-    console.log(index);
-    console.log(this.showList[index]);
-    console.log(this.showList[index].articlename);
-    this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+
+    this.firebaseProvider.updateReadingWebsiteState(this.showList[index].articlename);
+    this.firebaseProvider.updateHistory(this.showList[index].articlename);
+
+    this.inappProvider.openWebsite(this.showList[index].websiteURL);
+
   }
 
   getItems(ev: any) {
     console.log(this.searchKey);
     this.showList = new Array();
     if (this.searchKey == "") {
-      // for (let list of this.articleList) {
-      //   this.showList.push(list);
-      // }
+      for (let list of this.articleList) {
+        this.showList.push(list);
+      }
     } else {
       for (let list of this.articleList) {
         if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {

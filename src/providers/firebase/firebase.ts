@@ -20,8 +20,12 @@ export class FirebaseProvider {
     console.log('Hello FirebaseProvider Provider');
   }
 
-  updateReadingState(articleName) {
-    firebase.database().ref('Articles/' + articleName).update({ 'reading': true });
+  updateReadingVideoState(articleName) {
+    firebase.database().ref('Articles/' + articleName).update({ 'readvideo': true });
+  }
+
+  updateReadingWebsiteState(articleName) {
+    firebase.database().ref('Articles/' + articleName).update({ 'readwebsite': true });
   }
 
   updateHistory(articleName) {
