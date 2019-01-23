@@ -45,14 +45,10 @@ export class InsurancePage {
   }
 
   goToArticleDetail(index) {
-    console.log(index);
-    console.log(this.showList[index]);
-    console.log(this.showList[index].articlename);
     this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
   }
 
   getItems(ev: any) {
-    console.log(this.searchKey);
     this.showList = new Array();
     if (this.searchKey == "") {
       for (let list of this.insuranceList) {
@@ -65,6 +61,5 @@ export class InsurancePage {
         }
       }
     }
-    console.log(this.showList);
   }
 }

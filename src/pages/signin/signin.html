@@ -1,0 +1,47 @@
+<!--
+  Generated template for the SigninPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>signin</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row class="full-height">
+    <form #userData="ngForm" id="userData" (ngSubmit)="authSubmit(userData)" novalidate *ngIf="signForm">
+      <ion-item>
+        <ion-label>
+          Email:
+        </ion-label>
+        <ion-input type="email" required [formControl]="emailCtrl" [(ngModel)]="signInParam.email" name="email"
+          placeholder=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Password:
+        </ion-label>
+        <ion-input type="password" required [(ngModel)]="signInParam.password" name="password" placeholder=""></ion-input>
+      </ion-item>
+      <ion-row class="forgot-pass">
+        <span (click)="forgotPassword()">
+          Forgot Password?
+        </span>
+      </ion-row>
+      <button id="danceRoom-button8" ion-button outline color="positive" block>
+        Sign In
+      </button>
+      <ion-row class="go-signup">
+        <ion-label>
+          Not registered yet? <span (click)="goToSignUp()">Sign Up</span>
+        </ion-label>
+      </ion-row>
+    </form>
+  </ion-row>
+</ion-content>

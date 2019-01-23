@@ -1,0 +1,27 @@
+<ion-header>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="http://www.youtube.com/player_api"></script>
+  <ion-navbar>
+
+
+    <ion-title *ngIf="enableShow">
+      {{articleDeta.articlename}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page7">
+
+  <div *ngIf="enableShow">
+    <div id="howBondInvestingWorks-video12">
+      <iframe [src]="articleDeta.websiteURL" frameborder="0" allowfullscreen width="560" id="vdo-player1" height="315"></iframe>
+    </div>
+
+    <ion-row class="like-part">
+      <ion-icon name="ios-heart-outline" class="unlike-icon" *ngIf="!likedState" (click)="likeArticle()"></ion-icon>
+      <ion-icon name="ios-heart" class="like-icon" *ngIf="likedState" (click)="likeArticle()"></ion-icon>
+      &nbsp;&nbsp;
+      <span [ngClass]="{'like-icon':likedState, 'unlike-icon':!likedState}" (click)="likeArticle()">Like</span>
+    </ion-row>
+
+  </div>
+</ion-content>

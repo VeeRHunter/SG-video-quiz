@@ -4,6 +4,7 @@ page-article-detail {
             border-style: inset;
             border-width: 3px;
             border-color: coral;
+            width: 100%;
             padding: 3px;
             .quiz-first {
                 margin-top: 10px;
@@ -44,5 +45,14 @@ page-article-detail {
         ion-icon {
             font-size: 25px;
         }
+    }
+    .chart-graph {
+        margin-top: 20px;
+        canvas {
+            width: 100%;
+        }
+    }
+    #notes-button4 {
+        margin-bottom: 25px;
     }
 }

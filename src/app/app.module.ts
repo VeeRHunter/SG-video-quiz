@@ -32,6 +32,12 @@ import { ArticleDetailPage } from '../pages/article-detail/article-detail';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { InappbrowProvider } from '../providers/inappbrow/inappbrow';
+import { ChartsModule } from 'ng2-charts';
+import { AuthProvider } from '../providers/auth/auth';
+import { SigninPage } from '../pages/signin/signin';
+import { SignupPage } from '../pages/signup/signup';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { WebsiteArticlePage } from '../pages/website-article/website-article';
 
 
 const firebaseConfig = {
@@ -58,12 +64,17 @@ firebase.initializeApp(firebaseConfig);
     RecommendationsPage,
     SearchPage,
     ArticleDetailPage,
+    SigninPage,
+    SignupPage,
+    ForgotPasswordPage,
+    WebsiteArticlePage,
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    ChartsModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
@@ -81,6 +92,10 @@ firebase.initializeApp(firebaseConfig);
     RecommendationsPage,
     SearchPage,
     ArticleDetailPage,
+    SigninPage,
+    SignupPage,
+    ForgotPasswordPage,
+    WebsiteArticlePage,
   ],
   providers: [
     StatusBar,
@@ -92,7 +107,8 @@ firebase.initializeApp(firebaseConfig);
     DataProvider,
     FirebaseProvider,
     ToastProvider,
-    InappbrowProvider
+    InappbrowProvider,
+    AuthProvider
   ]
 })
 export class AppModule { }

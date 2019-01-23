@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
-import { ArticleDetailPage } from '../article-detail/article-detail';
 
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
 
+import * as firebase from 'firebase';
+import { WebsiteArticlePage } from '../website-article/website-article';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class SearchPage {
   public eachArticle: any = {};
   public articleList: any[];
   public showList: any[];
+
+  public user: any;
 
   public searchKey = "";
   constructor(
@@ -53,12 +56,12 @@ export class SearchPage {
     this.firebaseProvider.updateReadingWebsiteState(this.showList[index].articlename);
     this.firebaseProvider.updateHistory(this.showList[index].articlename);
 
-    this.inappProvider.openWebsite(this.showList[index].websiteURL);
+    // this.inappProvider.openWebsite(this.showList[index].websiteURL);
+    this.navCtrl.push(WebsiteArticlePage, { articleParam: this.showList[index] });
 
   }
 
   getItems(ev: any) {
-    console.log(this.searchKey);
     this.showList = new Array();
     if (this.searchKey == "") {
       for (let list of this.articleList) {
@@ -71,7 +74,6 @@ export class SearchPage {
         }
       }
     }
-    console.log(this.showList);
   }
 
 }

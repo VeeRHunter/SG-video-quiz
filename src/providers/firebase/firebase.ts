@@ -20,28 +20,49 @@ export class FirebaseProvider {
     console.log('Hello FirebaseProvider Provider');
   }
 
+  updateQuizHistoryList(articleName, quizHistory) {
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'quizhistory': quizHistory });
+  }
+
   updateReadingVideoState(articleName) {
-    firebase.database().ref('Articles/' + articleName).update({ 'readvideo': true });
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'readvideo': true });
   }
 
   updateReadingWebsiteState(articleName) {
-    firebase.database().ref('Articles/' + articleName).update({ 'readwebsite': true });
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'readwebsite': true });
   }
 
   updateHistory(articleName) {
-    firebase.database().ref('Articles/' + articleName).update({ 'history': true });
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'history': true });
   }
 
   updateLikeState(articleName, likeState) {
-    firebase.database().ref('Articles/' + articleName).update({ 'liked': likeState });
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'liked': likeState });
+  }
+
+  updateLikeWebsiteState(articleName, likeState) {
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'likewebsite': likeState });
+  }
+
+  updateLikeVideoState(articleName, likeState) {
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'likevideo': likeState });
   }
 
   updateStarState(articleName, starRate) {
-    firebase.database().ref('Articles/' + articleName).update({ 'starrating': starRate });
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'starrating': starRate });
   }
 
   updateQuestinAnswers(articleName, questinList) {
-    firebase.database().ref('Articles/' + articleName).update({ 'quiz-answer': questinList });
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'quizanswer': questinList });
   }
 
 
