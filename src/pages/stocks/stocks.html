@@ -13,7 +13,7 @@
     <ion-item-sliding *ngFor="let searchItem of showList; let i = index">
 
       <ion-item color="none" on-click="goToArticleDetail(i)" id="insurance-list-item23">
-        {{searchItem.articlename}}
+        Video {{i+1}}: {{searchItem.articlename}}
       </ion-item>
 
     </ion-item-sliding>

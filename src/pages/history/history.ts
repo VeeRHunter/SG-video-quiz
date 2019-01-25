@@ -20,6 +20,8 @@ export class HistoryPage {
 
   public searchKey = "";
 
+  public historyNumber = 0;
+
   public user: any;
 
   constructor(
@@ -51,47 +53,17 @@ export class HistoryPage {
               this.showList.push(list);
             }
           }
-          else if (list[this.user.uid].readvideo != null) {
-            if (list[this.user.uid].readvideo) {
-              this.showList.push(list);
-            }
-          }
-          else if (list[this.user.uid].readvideo != null && list[this.user.uid].readwebsite != null) {
-            if (list[this.user.uid].readvideo || list[this.user.uid].readwebsite) {
-              this.showList.push(list);
-            }
-          }
         }
-        // if (list.readvideo || list.readwebsite) {
-        //   this.showList.push(list);
-        // }
       }
+
+      this.historyNumber = this.showList.length;
       this.loading.hide();
     });
   }
 
   goToArticleDetail(index) {
-    if (typeof (this.showList[index][this.user.uid]) != "undefined") {
-      if (typeof (this.showList[index][this.user.uid].readvideo) != "undefined"
-        && this.showList[index][this.user.uid].readvideo != null) {
-        if (typeof (this.showList[index][this.user.uid].readwebsite) != "undefined"
-          && this.showList[index].readwebsite != null) {
-          // this.inappProvider.openWebsite(this.showList[index].websiteURL);
-          this.navCtrl.push(WebsiteArticlePage, { articleParam: this.showList[index] });
-        } else {
-          this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
-        }
-      } else {
-        if (typeof (this.showList[index][this.user.uid].readwebsite) != "undefined"
-          && this.showList[index].readwebsite != null) {
-          // this.inappProvider.openWebsite(this.showList[index].websiteURL);
-          this.navCtrl.push(WebsiteArticlePage, { articleParam: this.showList[index] });
-        } else {
-          this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
-        }
-      }
-    }
-    // this.inappProvider.openWebsite(this.showList[index].websiteURL);
+    // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.showList[index] });
+    this.inappProvider.openWebsite(this.showList[index].websiteURL);
     // this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
   }
 

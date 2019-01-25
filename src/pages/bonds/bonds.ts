@@ -19,6 +19,9 @@ export class BondsPage {
 
   public searchKey = "";
 
+  public customList: any[];
+  public nameList = ['Investing Basics', 'Investing in Bonds 101', 'How Bond Investing works'];
+
   constructor(
     public navCtrl: NavController,
     public loading: LoadingProvider,
@@ -34,10 +37,18 @@ export class BondsPage {
 
     this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
       this.bondList = new Array();
+      this.customList = new Array();
       this.eachArticle = result.payload.val();
       for (var listKey in this.eachArticle) {
-        if (this.eachArticle[listKey].type == "Bonds") {
+        if (this.eachArticle[listKey].type == "Bonds" && this.eachArticle[listKey].videoURL != null) {
           this.bondList.push(this.eachArticle[listKey]);
+        }
+      }
+      for (let listString of this.nameList) {
+        for (let list of this.bondList) {
+          if (listString == list.articlename) {
+            this.customList.push(list);
+          }
         }
       }
       this.getItems(event);
@@ -52,11 +63,11 @@ export class BondsPage {
   getItems(ev: any) {
     this.showList = new Array();
     if (this.searchKey == "") {
-      for (let list of this.bondList) {
+      for (let list of this.customList) {
         this.showList.push(list);
       }
     } else {
-      for (let list of this.bondList) {
+      for (let list of this.customList) {
         if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
           this.showList.push(list);
         }

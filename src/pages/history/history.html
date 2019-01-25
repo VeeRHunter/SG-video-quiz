@@ -7,6 +7,10 @@
 </ion-header>
 <ion-content padding id="page4">
 
+  <h6>
+    Total Articles Read: {{historyNumber}}
+  </h6>
+
   <ion-item color="none" *ngFor="let searchItem of showList; let i = index" on-click="goToArticleDetail(i)" id="insurance-list-item23">
     {{searchItem.articlename}}
   </ion-item>

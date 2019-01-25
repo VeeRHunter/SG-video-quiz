@@ -35,6 +35,11 @@ export class FirebaseProvider {
     firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'readwebsite': true });
   }
 
+  updateReadingWebsiteCategory(articleName, categoryType) {
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'readcategory': categoryType });
+  }
+
   updateHistory(articleName) {
     let user = firebase.auth().currentUser;
     firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'history': true });
@@ -63,6 +68,16 @@ export class FirebaseProvider {
   updateQuestinAnswers(articleName, questinList) {
     let user = firebase.auth().currentUser;
     firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'quizanswer': questinList });
+  }
+
+  updateQuestionFailed(articleName) {
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'quizfailed': true });
+  }
+
+  updateQuestionPassed(articleName) {
+    let user = firebase.auth().currentUser;
+    firebase.database().ref('Articles/' + articleName + '/' + user.uid).update({ 'quizfailed': false });
   }
 
 

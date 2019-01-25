@@ -38,16 +38,35 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { WebsiteArticlePage } from '../pages/website-article/website-article';
+import { VideoReadingListPage } from '../pages/video-reading-list/video-reading-list';
+import { VideoHistoryPage } from '../pages/video-history/video-history';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAV_uyBCHubtBWF1LioFqfCvfAkCzvhi60",
-  authDomain: "msaproj-de614.firebaseapp.com",
-  databaseURL: "https://msaproj-de614.firebaseio.com",
-  projectId: "msaproj-de614",
-  storageBucket: "msaproj-de614.appspot.com",
-  messagingSenderId: "830232158947"
+  // apiKey: "AIzaSyAV_uyBCHubtBWF1LioFqfCvfAkCzvhi60",
+  // authDomain: "msaproj-de614.firebaseapp.com",
+  // databaseURL: "https://msaproj-de614.firebaseio.com",
+  // projectId: "msaproj-de614",
+  // storageBucket: "msaproj-de614.appspot.com",
+  // messagingSenderId: "830232158947"
+
+
+  apiKey: "AIzaSyDXtI8ityuIeQrjIS8ipnEqKkpFEJMjBTI",
+  authDomain: "oscarproj-7f8c2.firebaseapp.com",
+  databaseURL: "https://oscarproj-7f8c2.firebaseio.com",
+  projectId: "oscarproj-7f8c2",
+  storageBucket: "oscarproj-7f8c2.appspot.com",
+  messagingSenderId: "364292499888"
+
 };
+
+// apiKey: "AIzaSyDXtI8ityuIeQrjIS8ipnEqKkpFEJMjBTI",
+// authDomain: "oscarproj-7f8c2.firebaseapp.com",
+// databaseURL: "https://oscarproj-7f8c2.firebaseio.com",
+// projectId: "oscarproj-7f8c2",
+// storageBucket: "oscarproj-7f8c2.appspot.com",
+// messagingSenderId: "364292499888"
+
 firebase.initializeApp(firebaseConfig);
 
 @NgModule({
@@ -68,6 +87,8 @@ firebase.initializeApp(firebaseConfig);
     SignupPage,
     ForgotPasswordPage,
     WebsiteArticlePage,
+    VideoReadingListPage,
+    VideoHistoryPage,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +117,8 @@ firebase.initializeApp(firebaseConfig);
     SignupPage,
     ForgotPasswordPage,
     WebsiteArticlePage,
+    VideoReadingListPage,
+    VideoHistoryPage,
   ],
   providers: [
     StatusBar,

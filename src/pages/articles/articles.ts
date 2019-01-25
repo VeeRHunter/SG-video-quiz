@@ -4,6 +4,8 @@ import { SearchPage } from '../search/search';
 import { RecommendationsPage } from '../recommendations/recommendations';
 import { ReadingListPage } from '../reading-list/reading-list';
 import { HistoryPage } from '../history/history';
+import { VideoReadingListPage } from '../video-reading-list/video-reading-list';
+import { VideoHistoryPage } from '../video-history/video-history';
 
 @Component({
   selector: 'page-articles',
@@ -13,17 +15,33 @@ export class ArticlesPage {
 
   constructor(public navCtrl: NavController) {
   }
-  goToSearch(params){
+  goToSearch(params) {
     if (!params) params = {};
     this.navCtrl.push(SearchPage);
-  }goToRecommendations(params){
+  }
+
+  goToRecommendations(params) {
     if (!params) params = {};
     this.navCtrl.push(RecommendationsPage);
-  }goToReadingList(params){
+  }
+
+  goToWebsiteReadingList(params) {
     if (!params) params = {};
     this.navCtrl.push(ReadingListPage);
-  }goToHistory(params){
+  }
+
+  goToVideoReadingList(params) {
+    if (!params) params = {};
+    this.navCtrl.push(VideoReadingListPage);
+  }
+
+  goToWebsiteHistory(params) {
     if (!params) params = {};
     this.navCtrl.push(HistoryPage);
+  }
+
+  goToVideoHistory(params) {
+    if (!params) params = {};
+    this.navCtrl.push(VideoHistoryPage);
   }
 }

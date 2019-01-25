@@ -18,6 +18,9 @@ export class StocksPage {
 
   public searchKey = "";
 
+  public customList: any[];
+  public nameList = ['What are stocks', 'Investing for Beginners', 'Investing safely'];
+
   constructor(
     public navCtrl: NavController,
     public loading: LoadingProvider,
@@ -33,10 +36,18 @@ export class StocksPage {
 
     this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
       this.stocksList = new Array();
+      this.customList = new Array();
       this.eachArticle = result.payload.val();
       for (var listKey in this.eachArticle) {
-        if (this.eachArticle[listKey].type == "Stocks") {
+        if (this.eachArticle[listKey].type == "Stocks" && this.eachArticle[listKey].videoURL != null) {
           this.stocksList.push(this.eachArticle[listKey]);
+        }
+      }
+      for (let listString of this.nameList) {
+        for (let list of this.stocksList) {
+          if (listString == list.articlename) {
+            this.customList.push(list);
+          }
         }
       }
       this.getItems(event);
@@ -51,11 +62,11 @@ export class StocksPage {
   getItems(ev: any) {
     this.showList = new Array();
     if (this.searchKey == "") {
-      for (let list of this.stocksList) {
+      for (let list of this.customList) {
         this.showList.push(list);
       }
     } else {
-      for (let list of this.stocksList) {
+      for (let list of this.customList) {
         if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
           this.showList.push(list);
         }

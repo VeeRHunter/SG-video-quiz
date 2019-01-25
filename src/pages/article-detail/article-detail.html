@@ -24,12 +24,25 @@
       <span [ngClass]="{'like-icon':likedState, 'unlike-icon':!likedState}" (click)="likeArticle()">Like</span>
     </ion-row>
 
+    <ion-row>
+      <ion-row>
+        Don't forget to give this video rating:
+      </ion-row>
+      <ion-row>
+        <span class="fa fa-star" [ngClass]="{'checked':starRating >= i, 'unset':starRating < i}" (click)="setRating(i)"
+          *ngFor="let list of starList; let i = index">
+        </span>
+      </ion-row>
+    </ion-row>
+
     <br>
     <ion-row class="quiz-part">
       <h6>
 
         <ion-row class="quiz-first">
-          <h1 align="center"><u> Quiz Time! </u></h1>
+          <h1 align="center"><u> Quiz Time! </u></h1><br>
+        </ion-row>
+        <ion-row class="quiz-title-des">
           <h4 align="center">
             Now lets apply your knowledge in this Quiz. <br>
 
@@ -39,51 +52,32 @@
 
         <div *ngFor="let list of articleDeta.questions; let quizIndex = index" class="quiz-detail">
 
-          <h5 class="quiz-title">
+          <h5 align="center" class="quiz-title">
             <strong>Question {{quizIndex+1}}</strong>: {{list.questionname}}
           </h5>
 
 
-          <ion-list radio-group [(ngModel)]="selectedOption" class="quiz-des">
+          <ion-list align="center" radio-group [(ngModel)]="selectedOption" class="quiz-des">
             <ion-row *ngFor="let quizList of list.options;let optIndex = index">
-              <ion-col col-1>
-                <ion-row class="full-height">
-                  <input type="radio" checked name="{{list.questionname}}{{quizIndex}}" value="{{quizList.optionname}}"
-                    (click)="clickOption(quizIndex, optIndex)" *ngIf="list.selectedanswer==quizList.optionname">
-                  <input type="radio" name="{{list.questionname}}{{quizIndex}}" value="{{quizList.optionname}}" (click)="clickOption(quizIndex, optIndex)"
-                    *ngIf="list.selectedanswer!=quizList.optionname">
-                </ion-row>
-              </ion-col>
-              <ion-col col-11>
-                <ion-row class="full-height">
-                  <span (click)="clickOption(quizIndex, optIndex)">
-                    {{quizList.optionname}}
-                  </span>
-                </ion-row>
-              </ion-col>
-              <br>
+              <span class="center-item">
+                <input type="radio" checked name="{{list.questionname}}{{quizIndex}}" value="{{quizList.optionname}}"
+                  (click)="clickOption(quizIndex, optIndex)" *ngIf="list.selectedanswer==quizList.optionname">
+                <input type="radio" name="{{list.questionname}}{{quizIndex}}" value="{{quizList.optionname}}" (click)="clickOption(quizIndex, optIndex)"
+                  *ngIf="list.selectedanswer!=quizList.optionname">
+                <span (click)="clickOption(quizIndex, optIndex)">
+                  {{quizList.optionname}}
+                </span>
+              </span>
             </ion-row>
           </ion-list>
         </div>
 
-        <button id="notes-button4" ion-button color="positive" block (click)="submitQuiz()">
+        <button align="center" id="notes-button4" ion-button color="positive" block (click)="submitQuiz()">
           Submit
         </button>
 
-        Don't forget to give this video rating:
-        <br>
-        <span class="fa fa-star" [ngClass]="{'checked':starRating >= i, 'unset':starRating < i}" (click)="setRating(i)"
-          *ngFor="let list of starList; let i = index">
-        </span>
-        <br>
-
         <div style="display: block" class="chart-graph" *ngIf="showChart">
           <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [chartType]="barChartType"></canvas>
-
-          <!-- <canvas baseChart [datasets]="showChartData.lineChartData" [labels]="showChartData.lineChartLabels" [options]="showChartData.lineChartOptions"
-            [chartType]="showChartData.lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-          </canvas> -->
-
         </div>
 
       </h6>

@@ -21,20 +21,25 @@ page-article-detail {
             }
             .quiz-detail {
                 .quiz-des {
-                    width: 90%;
-                    margin-left: 5%; // span {
+                    // width: 90%;
+                    // margin-left: 5%; // span {
                     //     padding-left: 20px;
                     // }
-                    input {
+                    .center-item {
                         margin: auto;
-                        margin-top: 3px;
-                    }
-                    span {
-                        margin-top: auto;
-                        margin-bottom: auto;
+                        span {
+                            margin-top: auto;
+                            margin-bottom: auto;
+                        }
                     }
                 }
             }
+        }
+    }
+    .quiz-title-des {
+        margin-bottom: 20px;
+        h4 {
+            margin: auto;
         }
     }
     .checked {

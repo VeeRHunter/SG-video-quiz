@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
 import { ArticleDetailPage } from '../article-detail/article-detail';
-import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
 
 import * as firebase from 'firebase';
 import { WebsiteArticlePage } from '../website-article/website-article';
-import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
 
+/**
+ * Generated class for the VideoHistoryPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-reading-list',
-  templateUrl: 'reading-list.html'
+  selector: 'page-video-history',
+  templateUrl: 'video-history.html',
 })
-export class ReadingListPage {
+export class VideoHistoryPage {
 
   public eachArticle: any = {};
   public articleList: any[];
-
-  public searchList: any[];
-  public quizList: any[];
+  public showList: any[];
 
   public searchKey = "";
 
@@ -29,8 +34,7 @@ export class ReadingListPage {
     public navCtrl: NavController,
     public loading: LoadingProvider,
     public dataProvider: DataProvider,
-    public firebaseProvider: FirebaseProvider,
-    public inappbrowProvider:InappbrowProvider
+    public inappProvider: InappbrowProvider,
   ) {
   }
 
@@ -43,17 +47,16 @@ export class ReadingListPage {
     this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
       this.user = firebase.auth().currentUser;
       this.articleList = new Array();
-      this.searchList = new Array();
-      this.quizList = new Array();
+      this.showList = new Array();
       this.eachArticle = result.payload.val();
       for (var listKey in this.eachArticle) {
         this.articleList.push(this.eachArticle[listKey]);
       }
       for (let list of this.articleList) {
         if (typeof (list[this.user.uid]) != "undefined") {
-          if (list[this.user.uid].likewebsite != null) {
-            if (list[this.user.uid].likewebsite) {
-              this.searchList.push(list);
+          if (list[this.user.uid].readvideo != null) {
+            if (list[this.user.uid].readvideo) {
+              this.showList.push(list);
             }
           }
         }
@@ -63,12 +66,9 @@ export class ReadingListPage {
   }
 
   goToArticleDetail(index) {
-    // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.searchList[index] });
-    this.inappbrowProvider.openWebsite(this.searchList[index].websiteURL);
-  }
-
-  likeArticle(index) {
-    this.firebaseProvider.updateLikeWebsiteState(this.searchList[index].articlename, false);
+    this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
+    // this.inappProvider.openWebsite(this.showList[index].websiteURL);
+    // this.navCtrl.push(ArticleDetailPage, { articleParam: this.showList[index] });
   }
 
 }

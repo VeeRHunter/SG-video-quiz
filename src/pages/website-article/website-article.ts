@@ -61,9 +61,6 @@ export class WebsiteArticlePage {
       this.user = firebase.auth().currentUser;
 
       this.eachArticle = result.payload.val();
-      for (let list of this.eachArticle.questions) {
-        list.selectedanswer = "";
-      }
       this.articleDeta = this.eachArticle;
       if (typeof (this.articleDeta[this.user.uid]) != "undefined") {
         if (this.articleDeta[this.user.uid].likewebsite != null) {
@@ -73,7 +70,7 @@ export class WebsiteArticlePage {
       }
       this.articleDeta.websiteURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.articleDeta.websiteURL);
       this.enableShow = true;
-      this.firebaseProvider.updateReadingVideoState(this.articleDeta.articlename);
+      this.firebaseProvider.updateReadingWebsiteState(this.articleDeta.articlename);
       this.firebaseProvider.updateHistory(this.articleDeta.articlename);
       this.loading.hide();
     }, error => {

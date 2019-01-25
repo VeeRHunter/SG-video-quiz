@@ -20,6 +20,8 @@ export class SearchPage {
   public articleList: any[];
   public showList: any[];
 
+  public searchFilter = "";
+
   public user: any;
 
   public searchKey = "";
@@ -39,14 +41,24 @@ export class SearchPage {
   getArticleList() {
 
     this.dataProvider.getArticlesList().snapshotChanges().subscribe((result) => {
+      this.user = firebase.auth().currentUser;
       this.articleList = new Array();
       this.eachArticle = result.payload.val();
       for (var listKey in this.eachArticle) {
+        this.eachArticle[listKey].likewebsite = false;
         if (this.eachArticle[listKey].websiteURL != null) {
           this.articleList.push(this.eachArticle[listKey]);
         }
       }
-      this.getItems(event);
+      for (let list of this.articleList) {
+        if (typeof (list[this.user.uid]) != "undefined") {
+          if (list[this.user.uid].likewebsite != null) {
+            list.likewebsite = list[this.user.uid].likewebsite;
+          }
+        }
+      }
+      console.log(this.articleList);
+      this.getItems();
       this.loading.hide();
     });
   }
@@ -55,22 +67,47 @@ export class SearchPage {
 
     this.firebaseProvider.updateReadingWebsiteState(this.showList[index].articlename);
     this.firebaseProvider.updateHistory(this.showList[index].articlename);
+    this.firebaseProvider.updateReadingWebsiteCategory(this.showList[index].articlename, this.showList[index].type)
 
-    // this.inappProvider.openWebsite(this.showList[index].websiteURL);
-    this.navCtrl.push(WebsiteArticlePage, { articleParam: this.showList[index] });
-
+    this.inappProvider.openWebsite(this.showList[index].websiteURL);
+    // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.showList[index] });
   }
 
-  getItems(ev: any) {
+  likeArticle(index) {
+    this.showList[index].likewebsite = !this.showList[index].likewebsite;
+    this.firebaseProvider.updateLikeWebsiteState(this.showList[index].articlename, this.showList[index].likewebsite)
+  }
+
+  filterResult() {
+    this.getItems();
+  }
+
+  getItems() {
     this.showList = new Array();
     if (this.searchKey == "") {
-      for (let list of this.articleList) {
-        this.showList.push(list);
+      if (this.searchFilter == "") {
+        for (let list of this.articleList) {
+          this.showList.push(list);
+        }
+      } else {
+        for (let list of this.articleList) {
+          if (list.type == this.searchFilter) {
+            this.showList.push(list);
+          }
+        }
       }
     } else {
-      for (let list of this.articleList) {
-        if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
-          this.showList.push(list);
+      if (this.searchFilter == "") {
+        for (let list of this.articleList) {
+          if (this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
+            this.showList.push(list);
+          }
+        }
+      } else {
+        for (let list of this.articleList) {
+          if (list.type == this.searchFilter && this.dataProvider.compareTwoString(list.articlename, this.searchKey)) {
+            this.showList.push(list);
+          }
         }
       }
     }

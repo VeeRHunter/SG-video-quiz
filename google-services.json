@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "364292499888",
+    "firebase_url": "https://oscarproj-7f8c2.firebaseio.com",
+    "project_id": "oscarproj-7f8c2",
+    "storage_bucket": "oscarproj-7f8c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364292499888:android:578ec35425ffcdd9",
+        "android_client_info": {
+          "package_name": "oscar.article.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364292499888-bgaqi3j92cb7bmhe4eubfftvv3nqut8b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV1tPU7SFD4CLbro9wbygbq-M0odXOz7U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

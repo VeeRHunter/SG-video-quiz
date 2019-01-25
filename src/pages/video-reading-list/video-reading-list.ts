@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { DataProvider } from '../../providers/data/data';
 import { ArticleDetailPage } from '../article-detail/article-detail';
@@ -7,13 +7,20 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 import * as firebase from 'firebase';
 import { WebsiteArticlePage } from '../website-article/website-article';
-import { InappbrowProvider } from '../../providers/inappbrow/inappbrow';
 
+/**
+ * Generated class for the VideoReadingListPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-reading-list',
-  templateUrl: 'reading-list.html'
+  selector: 'page-video-reading-list',
+  templateUrl: 'video-reading-list.html',
 })
-export class ReadingListPage {
+export class VideoReadingListPage {
 
   public eachArticle: any = {};
   public articleList: any[];
@@ -30,7 +37,6 @@ export class ReadingListPage {
     public loading: LoadingProvider,
     public dataProvider: DataProvider,
     public firebaseProvider: FirebaseProvider,
-    public inappbrowProvider:InappbrowProvider
   ) {
   }
 
@@ -51,8 +57,8 @@ export class ReadingListPage {
       }
       for (let list of this.articleList) {
         if (typeof (list[this.user.uid]) != "undefined") {
-          if (list[this.user.uid].likewebsite != null) {
-            if (list[this.user.uid].likewebsite) {
+          if (list[this.user.uid].likevideo != null) {
+            if (list[this.user.uid].likevideo) {
               this.searchList.push(list);
             }
           }
@@ -63,12 +69,11 @@ export class ReadingListPage {
   }
 
   goToArticleDetail(index) {
-    // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.searchList[index] });
-    this.inappbrowProvider.openWebsite(this.searchList[index].websiteURL);
+    this.navCtrl.push(ArticleDetailPage, { articleParam: this.searchList[index] });
   }
 
   likeArticle(index) {
-    this.firebaseProvider.updateLikeWebsiteState(this.searchList[index].articlename, false);
+    this.firebaseProvider.updateLikeVideoState(this.searchList[index].articlename, false);
   }
 
 }

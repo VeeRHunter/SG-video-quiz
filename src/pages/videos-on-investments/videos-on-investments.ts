@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { BondsPage } from '../bonds/bonds';
 import { StocksPage } from '../stocks/stocks';
 import { InsurancePage } from '../insurance/insurance';
+import { VideoReadingListPage } from '../video-reading-list/video-reading-list';
+import { VideoHistoryPage } from '../video-history/video-history';
 
 @Component({
   selector: 'page-videos-on-investments',
@@ -24,5 +26,15 @@ export class VideosOnInvestmentsPage {
   goToInsurance(params) {
     if (!params) params = {};
     this.navCtrl.push(InsurancePage);
+  }
+
+  goToVideoReadingList(params) {
+    if (!params) params = {};
+    this.navCtrl.push(VideoReadingListPage);
+  }
+
+  goToVideoHistory(params) {
+    if (!params) params = {};
+    this.navCtrl.push(VideoHistoryPage);
   }
 }

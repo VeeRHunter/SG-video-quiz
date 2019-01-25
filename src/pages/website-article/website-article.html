@@ -14,13 +14,20 @@
   <div *ngIf="enableShow">
     <div id="howBondInvestingWorks-video12">
       <iframe [src]="articleDeta.websiteURL" frameborder="0" allowfullscreen width="560" id="vdo-player1" height="315"></iframe>
+      <!-- <iframe src="https://developer.mozilla.org/en-US/docs/Glossary" width="100%" height="500" frameborder="0"
+        allowfullscreen sandbox>
+      </iframe> -->
+      <!-- <object type="text/html" data="{{articleDeta.websiteURL}}" width="560px" height="315px" style="overflow:auto;border:5px ridge blue">
+      </object> -->
     </div>
 
     <ion-row class="like-part">
-      <ion-icon name="ios-heart-outline" class="unlike-icon" *ngIf="!likedState" (click)="likeArticle()"></ion-icon>
-      <ion-icon name="ios-heart" class="like-icon" *ngIf="likedState" (click)="likeArticle()"></ion-icon>
-      &nbsp;&nbsp;
-      <span [ngClass]="{'like-icon':likedState, 'unlike-icon':!likedState}" (click)="likeArticle()">Like</span>
+      <span class="recommend-icon">
+        <ion-icon name="ios-heart-outline" class="unlike-icon" *ngIf="!likedState" (click)="likeArticle()"></ion-icon>
+        <ion-icon name="ios-heart" class="like-icon" *ngIf="likedState" (click)="likeArticle()"></ion-icon>
+        &nbsp;&nbsp;
+        <span [ngClass]="{'like-icon':likedState, 'unlike-icon':!likedState}" (click)="likeArticle()">Like</span>
+      </span>
     </ion-row>
 
   </div>

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Video Reading List
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page3">
+
+  <!-- <h2>
+      Based on search
+    </h2> -->
+
+  <ion-row class="liked-row" *ngFor="let searchItem of searchList; let i = index">
+
+    <ion-col col-10>
+      <ion-row class="full-height" on-click="goToArticleDetail(i)">
+        <span>
+          {{searchItem.articlename}}
+        </span>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-2>
+      <ion-row class="full-height">
+        <ion-icon name="ios-heart" class="like-icon" (click)="likeArticle(i)"></ion-icon>
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
+
+  <!-- <h2>
+      Based on quiz results
+    </h2>
+  
+    <ion-row class="liked-row" *ngFor="let searchItem of quizList; let i = index">
+  
+      <ion-col col-10>
+        <ion-row class="full-height" on-click="goToVideoArticleDetail(i)">
+          <span>
+            {{searchItem.articlename}}
+          </span>
+        </ion-row>
+      </ion-col>
+  
+      <ion-col col-2>
+        <ion-row class="full-height">
+          <ion-icon name="ios-heart" class="like-icon" (click)="likeVideoArticle(i)"></ion-icon>
+        </ion-row>
+      </ion-col>
+  
+    </ion-row> -->
+
+  <!-- <ion-list> -->
+
+  <!-- <ion-item color="none" *ngFor="let searchItem of searchList; let i = index" on-click="goToArticleDetailSearch(i)" id="insurance-list-item23">
+      {{searchItem.articlename}}
+    </ion-item> -->
+
+  <!-- </ion-list> -->
+  <!-- 
+    <h2>
+      Based on quiz results
+    </h2> -->
+
+  <!-- <ion-list> -->
+
+  <!-- <ion-item color="none" *ngFor="let searchItem of quizList; let i = index" on-click="goToArticleDetailQuiz(i)" id="insurance-list-item23">
+      {{searchItem.articlename}}
+    </ion-item> -->
+
+
+</ion-content>

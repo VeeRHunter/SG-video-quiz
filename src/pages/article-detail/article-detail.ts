@@ -102,6 +102,7 @@ export class ArticleDetailPage {
     console.log(params);
     this.dataProvider.getArticleWithName(params).snapshotChanges().subscribe((result) => {
 
+      console.log(result);
       this.user = firebase.auth().currentUser;
       this.starRating = -1;
 
@@ -126,8 +127,10 @@ export class ArticleDetailPage {
 
       }
       console.log("here");
+      let filename = this.articleDeta.videoURL.split('/')[this.articleDeta.videoURL.split('/').length - 1]
+      this.articleDeta.videoURL = "https://www.youtube.com/embed/" + filename;
       this.articleDeta.videoURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.articleDeta.videoURL);
-      console.log(this.eachArticle);
+      this.articleDeta.videoURL.changingThisBreaksApplicationSecurity.replace()
       this.enableShow = true;
       this.firebaseProvider.updateReadingVideoState(this.articleDeta.articlename);
       this.firebaseProvider.updateHistory(this.articleDeta.articlename);
@@ -174,6 +177,11 @@ export class ArticleDetailPage {
       quizHistory.push(this.checked);
       console.log(quizHistory);
       this.firebaseProvider.updateQuizHistoryList(this.articleDeta.articlename, quizHistory);
+      if (this.checked >= (this.articleDeta.questions.length) / 2) {
+        this.firebaseProvider.updateQuestionPassed(this.articleDeta.articlename);
+      } else {
+        this.firebaseProvider.updateQuestionFailed(this.articleDeta.articlename);
+      }
       this.presentConfirm();
     } else {
       this.toast.show("Please complete all questions to submit");
@@ -212,7 +220,10 @@ export class ArticleDetailPage {
   quizResult() {
     if (this.checked >= (this.articleDeta.questions.length) / 2) {
       this.firebaseProvider.updateQuestinAnswers(this.articleDeta.articlename, this.articleDeta.questions);
+      this.firebaseProvider.updateQuestionPassed(this.articleDeta.articlename);
       this.navCtrl.setRoot(HomePage);
+    } else {
+      this.firebaseProvider.updateQuestionFailed(this.articleDeta.articlename);
     }
   }
 
