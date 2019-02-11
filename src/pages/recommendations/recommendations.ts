@@ -53,8 +53,18 @@ export class RecommendationsPage {
 
       this.eachArticle = result.payload.val();
       for (var listKey in this.eachArticle) {
+        this.eachArticle[listKey].likewebsite = false;
         this.articleList.push(this.eachArticle[listKey]);
       }
+
+      for (let list of this.articleList) {
+        if (typeof (list[this.user.uid]) != "undefined") {
+          if (list[this.user.uid].likewebsite != null) {
+            list.likewebsite = list[this.user.uid].likewebsite;
+          }
+        }
+      }
+
       // quiz part
       for (let list of this.articleList) {
         if (typeof (list[this.user.uid]) != "undefined") {
@@ -95,17 +105,20 @@ export class RecommendationsPage {
           }
         }
       }
+      console.log(categoryList);
       for (let list of this.articleList) {
         for (let listCategory of categoryList) {
           if (list.websiteURL != null) {
             if (listCategory == list.type) {
+              console.log(list.type);
               if (typeof (list[this.user.uid]) != "undefined") {
+                console.log(list[this.user.uid].readwebsite);
                 if (list[this.user.uid].readwebsite == null) {
                   this.searchList.push(list);
                 }
+              } else {
+                this.searchList.push(list);
               }
-            } else {
-              // this.searchList.push(list);
             }
           }
         }
@@ -125,6 +138,9 @@ export class RecommendationsPage {
   }
 
   goToArticleDetailSearch(index) {
+    this.firebaseProvider.updateReadingWebsiteState(this.searchList[index].articlename);
+    this.firebaseProvider.updateHistory(this.searchList[index].articlename);
+    this.firebaseProvider.updateReadingWebsiteCategory(this.searchList[index].articlename, this.searchList[index].type);
     this.inappProvider.openWebsite(this.searchList[index].websiteURL);
     // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.searchList[index] });
   }
@@ -132,6 +148,16 @@ export class RecommendationsPage {
   goToArticleDetailQuiz(index) {
     this.inappProvider.openWebsite(this.quizList[index].websiteURL);
     // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.quizList[index] });
+  }
+
+  likeSearchArticle(index) {
+    this.searchList[index].likewebsite = !this.searchList[index].likewebsite;
+    this.firebaseProvider.updateLikeWebsiteState(this.searchList[index].articlename, this.searchList[index].likewebsite);
+  }
+
+  likeVideoArticle(index) {
+    this.quizList[index].likewebsite = !this.quizList[index].likewebsite;
+    this.firebaseProvider.updateLikeWebsiteState(this.quizList[index].articlename, this.quizList[index].likewebsite);
   }
 
 }

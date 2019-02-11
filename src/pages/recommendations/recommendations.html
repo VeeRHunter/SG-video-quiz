@@ -8,28 +8,71 @@
 <ion-content padding id="page2">
   <ion-list id="recommendations-list4">
 
-    <h2 *ngIf="showSearch">
-      Based on search
-    </h2>
+    <ion-row *ngIf="showSearch">
+      <h2>
+        Based on search
+      </h2>
+    </ion-row>
 
     <!-- <ion-list> -->
 
-    <ion-item color="none" *ngFor="let searchItem of searchList; let i = index" on-click="goToArticleDetailSearch(i)"
+    <ion-row class="liked-row" *ngFor="let searchItem of searchList; let i = index">
+
+      <ion-col col-10>
+        <ion-row class="full-height" on-click="goToArticleDetail(i)">
+          <span>
+            {{searchItem.articlename}}
+          </span>
+        </ion-row>
+      </ion-col>
+
+      <ion-col col-2>
+        <ion-row class="full-height">
+          <ion-icon name="ios-heart-outline" class="unlike-icon" *ngIf="!searchItem.likewebsite" (click)="likeSearchArticle(i)"></ion-icon>
+          <ion-icon name="ios-heart" class="like-icon" *ngIf="searchItem.likewebsite" (click)="likeSearchArticle(i)"></ion-icon>
+        </ion-row>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- <ion-item color="none" *ngFor="let searchItem of searchList; let i = index" on-click="goToArticleDetailSearch(i)"
       id="insurance-list-item23">
       {{searchItem.articlename}}
-    </ion-item>
+    </ion-item> -->
 
     <!-- </ion-list> -->
 
-    <h2 *ngIf="showVideo">
-      Based on quiz results
-    </h2>
+    <ion-row *ngIf="showVideo">
+
+      <h2>
+        Based on quiz results
+      </h2>
+    </ion-row>
 
     <!-- <ion-list> -->
 
-    <ion-item color="none" *ngFor="let searchItem of quizList; let i = index" on-click="goToArticleDetailQuiz(i)" id="insurance-list-item23">
+    <ion-row class="liked-row" *ngFor="let searchItem of quizList; let i = index">
+
+      <ion-col col-10>
+        <ion-row class="full-height" on-click="goToArticleDetail(i)">
+          <span>
+            {{searchItem.articlename}}
+          </span>
+        </ion-row>
+      </ion-col>
+
+      <ion-col col-2>
+        <ion-row class="full-height">
+          <ion-icon name="ios-heart-outline" class="unlike-icon" *ngIf="!searchItem.likewebsite" (click)="likeVideoArticle(i)"></ion-icon>
+          <ion-icon name="ios-heart" class="like-icon" *ngIf="searchItem.likewebsite" (click)="likeVideoArticle(i)"></ion-icon>
+        </ion-row>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- <ion-item color="none" *ngFor="let searchItem of quizList; let i = index" on-click="goToArticleDetailQuiz(i)" id="insurance-list-item23">
       {{searchItem.articlename}}
-    </ion-item>
+    </ion-item> -->
 
     <!-- </ion-list> -->
 

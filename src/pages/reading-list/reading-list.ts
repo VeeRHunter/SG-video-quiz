@@ -63,6 +63,9 @@ export class ReadingListPage {
   }
 
   goToArticleDetail(index) {
+    this.firebaseProvider.updateReadingWebsiteState(this.searchList[index].articlename);
+    this.firebaseProvider.updateHistory(this.searchList[index].articlename);
+    this.firebaseProvider.updateReadingWebsiteCategory(this.searchList[index].articlename, this.searchList[index].type);
     // this.navCtrl.push(WebsiteArticlePage, { articleParam: this.searchList[index] });
     this.inappbrowProvider.openWebsite(this.searchList[index].websiteURL);
   }

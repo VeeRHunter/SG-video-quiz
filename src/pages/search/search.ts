@@ -57,7 +57,6 @@ export class SearchPage {
           }
         }
       }
-      console.log(this.articleList);
       this.getItems();
       this.loading.hide();
     });
@@ -75,7 +74,7 @@ export class SearchPage {
 
   likeArticle(index) {
     this.showList[index].likewebsite = !this.showList[index].likewebsite;
-    this.firebaseProvider.updateLikeWebsiteState(this.showList[index].articlename, this.showList[index].likewebsite)
+    this.firebaseProvider.updateLikeWebsiteState(this.showList[index].articlename, this.showList[index].likewebsite);
   }
 
   filterResult() {
